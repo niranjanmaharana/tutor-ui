@@ -1,2 +1,2 @@
-# tutorials-point
-Tutorials Point
+# tutor-services
+Tutor Services
