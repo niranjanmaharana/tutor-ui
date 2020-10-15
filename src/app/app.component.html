@@ -1,0 +1,41 @@
+<div [style.display]="this.auth.showWarning ? 'block' : 'none'" class="modal" data-backdrop="false" role="dialog" aria-labelledby="logoutwarning" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title pull-left">Session Warning</span>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="this.auth.showWarning = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{this.auth.idleState}}
+            </div>
+            <div class="modal-footer">
+                <div class="container">
+                    <div class="row mrgbtm text-right">
+                        <div class="col-md-6">
+                            <button type="button" (click)="onLogoutSessionClick()" class="btn btn-danger">Logout</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" (click)="onContinueSessionClick()" class="btn btn-warning">Continue Working</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <app-http-loader></app-http-loader>
+    <app-navigation *ngIf="this.auth.getUser() != null"></app-navigation>
+    <div class="content-wrapper d-flex flex-column">
+        <div class="content">
+            <app-header *ngIf="this.auth.getUser() != null"></app-header>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <div class="overlay"></div>
+        <app-footer *ngIf="this.auth.getUser() != null"></app-footer>
+    </div>
+</div>

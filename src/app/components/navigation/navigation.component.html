@@ -1,0 +1,44 @@
+<!-- Sidebar -->
+<nav class="sidebar" [ngClass]="menu.isNavCollapsed ? 'active' : ''">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="short-title rotate-n-15">
+            <img src="../assets/images/favicon.png">
+        </div>
+        <div class="complete-title mx-3" title="Tutor Management">Tutor</div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <ul class="list-unstyled components">
+        <li class="nav-item active menu-header">
+            <a class="nav-link" role="button"><i class="fa fa-tachometer"></i><span class="text">Dashboard</span></a>
+        </li>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a href="#" aria-expanded="false" class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home"></i><span class="text">Home</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+                <i class="fa fa-folder"></i><span class="text">Student</span>
+                <i class="fa fa-chevron-right"></i>
+            </a>
+            <ul class="submenu collapse list-unstyled" id="pageSubmenu">
+                <li class="nav-item"><a class="nav-link" href="#" routerLink="/student" routerLinkActive="active">List</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" [routerLink]="['/student', 0]" routerLinkActive="active">Add</a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="/table" routerLinkActive="active"><i class="fa fa-table"></i><span class="text">Table</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="/contact" routerLinkActive="active"><i class="fa fa-paper-plane"></i><span class="text">Contact</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="/about" routerLinkActive="active"><i class="fa fa-briefcase"></i><span class="text">About</span></a>
+        </li>
+    </ul>
+    <hr class="sidebar-divider my-0">
+    <div class="text-center mt-2">
+        <button class="sidebar-toggler rounded-circle border-0" (click)="menu.isNavCollapsed = !menu.isNavCollapsed">
+            <i class="fa" [ngClass]="menu.isNavCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+        </button>
+    </div>
+</nav>
