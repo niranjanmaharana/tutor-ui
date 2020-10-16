@@ -1,0 +1,64 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Student</h1>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Student List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <table class="table table-borderless" cellspacing="0" role="grid">
+                    <thead class="thead-light">
+                        <tr role="row">
+                            <th rowspan="1" colspan="1">#</th>
+                            <th rowspan="1" colspan="1">#REGD</th>
+                            <th rowspan="1" colspan="1">NAME</th>
+                            <th rowspan="1" colspan="1">STANDARD</th>
+                            <th rowspan="1" colspan="1">CONTACT</th>
+                            <th rowspan="1" colspan="1">PARENT</th>
+                            <!-- <th rowspan="1" colspan="1">NAME</th>
+                            <th rowspan="1" colspan="1">STANDARD</th>
+                            <th rowspan="1" colspan="1">CONTACT</th>
+                            <th rowspan="1" colspan="1">PARENT</th>
+                            <th rowspan="1" colspan="1">NAME</th>
+                            <th rowspan="1" colspan="1">STANDARD</th>
+                            <th rowspan="1" colspan="1">CONTACT</th>
+                            <th rowspan="1" colspan="1">PARENT</th> -->
+                            <!-- <th rowspan="1" colspan="1">NAME</th>
+                                    <th rowspan="1" colspan="1">AREA</th>
+                                    <th rowspan="1" colspan="1">POPULATION</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let student of students | paginate: { itemsPerPage: 10, currentPage: page }; index as i">
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>{{ student.enrlmntNmbr }}</td>
+                            <td>{{ student.stdntNm }}</td>
+                            <td>{{ student.stndrd }}</td>
+                            <td>{{ student.cntct }}</td>
+                            <td>{{ student.prntNm }}</td>
+                            <!-- <td>{{ student.stdntNm }}</td>
+                            <td>{{ student.stndrd }}</td>
+                            <td>{{ student.cntct }}</td>
+                            <td>{{ student.prntNm }}</td>
+                            <td>{{ student.stdntNm }}</td>
+                            <td>{{ student.stndrd }}</td>
+                            <td>{{ student.cntct }}</td>
+                            <td>{{ student.prntNm }}</td> -->
+                            <!--<td>{{ property.area }}</td>
+                                    <td>{{ property.population }}</td>
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ property.name }}</td>
+                                    <td>{{ property.area }}</td>
+                                    <td>{{ property.population }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="has-text-centered pagination">
+            <pagination-controls (pageChange)="page=$event"></pagination-controls>
+        </div>
+    </div>
+</div>

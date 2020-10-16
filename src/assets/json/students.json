@@ -1,0 +1,38 @@
+{
+    "status": "Successfull",
+    "data": [{
+        "id": 1,
+        "enrlmntNmbr": "AF83580",
+        "stdntNm": "Niranjan Maharana",
+        "stndrd": 8,
+        "addrss": {
+            "id": 1,
+            "cntry": "India",
+            "state": "Odisha",
+            "dstrct": "Ganjam",
+            "city": "Berhampur",
+            "addrss": "Barapalli",
+            "zipCd": 761001
+        },
+        "cntct": "9556824846",
+        "prntNm": "Babu Maharana",
+        "rltnshp": "Son"
+    }, {
+        "id": 2,
+        "enrlmntNmbr": "AF86384",
+        "stdntNm": "Ramchandra Maharana",
+        "stndrd": 8,
+        "addrss": {
+            "id": 1,
+            "cntry": "India",
+            "state": "Odisha",
+            "dstrct": "Bhadrak",
+            "city": "Bhadrak",
+            "addrss": "Bhadrak",
+            "zipCd": 560045
+        },
+        "cntct": "9556824846",
+        "prntNm": "Babu Maharana",
+        "rltnshp": "Son"
+    }]
+}
