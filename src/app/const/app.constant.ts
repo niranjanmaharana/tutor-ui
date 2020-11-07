@@ -6,6 +6,9 @@ export class AppConstant {
     static IDLE_TIME: number = 60 * 30;
     static TIMEOUT_INTERVAL = 60;
     static PING_INTERVAL = 60;
-    static UPDT_TKN_INTRVL: number = 9 * 60 * 60;
+    /**
+     * The token will be refreshed after each UPDT_TKN_INTRVL interval of time
+     */
+    static UPDT_TKN_INTRVL: number = 10 * 60 * 1000;
     static LOGOUT_WARNING_MSG = 'Your session will be logged out soon. To continue working with your current session select Continue Working.';
 }

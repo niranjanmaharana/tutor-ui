@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup" [autocomplete]="formOptions.autoComplete || 'on'" [class]="formOptions.cls || ''" (submit)="onSubmit()">
+    <div class="container">
+        <div class="row" *ngFor="let formControl of formControls">
+            <div class="col-lg-12">
+                <label [for]="formControl.name"> {{formControl.fieldLabel}}</label>
+                <div class="form-group">
+                    <div *ngIf="formControl.type == 'select'">
+                        <select [class]="formControl.cls" [formControlName]="formControl.name" [id]="formControl.name" [ngClass]="{'is-invalid': formGroup.controls[formControl.name].touched && formGroup.controls[formControl.name].errors}">
+                            <option *ngFor="let _option of formControl.collection;" value="{{_option[formControl.valueField]}}" selected="{{_option[formControl.valueField] == formControl.value}}">{{ _option[formControl.displayField] }}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="formControl.type == 'textarea'">
+                        <textarea [class]="formControl.cls" [formControlName]="formControl.name" [id]="formControl.name" [ngClass]="{'is-invalid': formGroup.controls[formControl.name].touched && formGroup.controls[formControl.name].errors}" [placeholder]="formControl.placeHolder || '' "></textarea>
+                    </div>
+                    <div *ngIf="formControl.type !== 'textarea' && formControl.type !== 'select'">
+                        <input [type]="formControl.type" [class]="formControl.cls" [formControlName]="formControl.name" [id]="formControl.name" [ngClass]="{'is-invalid': formGroup.controls[formControl.name].touched && formGroup.controls[formControl.name].errors}" [placeholder]="formControl.placeHolder || '' "
+                            [autocomplete]="formControl.autoComplete || 'on'">
+                    </div>
+                    <app-control-messages [control]="formGroup.controls[formControl.name]"></app-control-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

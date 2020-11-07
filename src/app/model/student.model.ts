@@ -10,7 +10,6 @@ export class Student {
     public prntNm: string;
     public rltnshp: string;
 
-    // tslint:disable-next-line: max-line-length
     constructor(id: number, enrlmntNmbr: string, stdntNm: string, stndrd: number, addrss: Address, cntct: number, prntNm: string, rltnshp: string) {
         this.id = id;
         this.enrlmntNmbr = enrlmntNmbr;

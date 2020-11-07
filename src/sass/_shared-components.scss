@@ -10,14 +10,22 @@ a:hover,
 a:focus,
 button:hover,
 button:focus,
+button:active,
 input:hover,
-input:focus {
+input:focus,
+input:active,
+select:focus,
+select:hover,
+select:active,
+textarea:focus,
+textarea:hover,
+textarea:active {
     outline: none !important;
     box-shadow: none !important;
 }
 
-.btn {
-    border-radius: 0px !important;
+textarea {
+    resize: none;
 }
 
 .card {
@@ -115,8 +123,37 @@ h4 {
     font-size: 1.5rem;
 }
 
+table.paginated-table th {
+    text-transform: uppercase;
+    text-align: center;
+    clear: both;
+    white-space: nowrap;
+}
+
+table.paginated-table {
+    .merge-one-line {
+        clear: both;
+        white-space: nowrap;
+    }
+    tr {
+        cursor: pointer;
+    }
+}
+
+.pagination {
+    padding-top: 10px;
+}
+
 .table-wrapper {
+    .table {
+        margin-bottom: 0rem;
+    }
     thead {
+        font-size: 12px;
+        font-weight: 500;
+        th {
+            font-weight: 500;
+        }
         color: $tbl-hdr-color;
         th:hover {
             cursor: pointer;
@@ -127,8 +164,26 @@ h4 {
             box-shadow: none;
             outline: none;
         }
+        .action {
+            cursor: auto;
+        }
+    }
+    tbody.no-event {
+        td {
+            pointer-events: none;
+        }
     }
     tbody {
         color: $tbl-hdr-color;
+        font-size: 14px;
+        .action {
+            text-align: center;
+            clear: both;
+            white-space: nowrap;
+            button {
+                padding-top: 0rem !important;
+                padding-bottom: 0rem !important;
+            }
+        }
     }
 }

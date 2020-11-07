@@ -1,0 +1,94 @@
+<div [ngStyle]="{'display': showDesc ? 'block' : 'none' }" class='modal' data-backdrop='false' role='dialog' aria-hidden='true'>
+    <div class='modal-dialog modal-dialog-centered'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span class='modal-title pull-left'>Log Description</span>
+                <button type='button' class='close pull-right' aria-label='Close' (click)='this.showDesc = false'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <div class='container' [ngClass]='{"is-invalid": (logger && logger.logTypeCd === 1)}'>
+                    <div class='row'>
+                        <div class='col-lg-12'>Log Message</div>
+                        <div class='col-lg-12'>{{ logger ? logger.logMsg : '' }}</div>
+                        <div class='col-lg-12'>Description</div>
+                        <div class='col-lg-12'>{{ logger ? logger.logDesc : '' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='d-sm-flex align-items-center justify-content-between mb-4'>
+    <h1 class='h3 mb-0 text-gray-800'>Manage Application Logs</h1>
+</div>
+<div class='card shadow mb-4'>
+    <div class='card-header py-3'>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-lg-6 col-md-6 col-sm-12'>
+                    <h6 class='m-0 font-weight-bold text-primary'>Application Logs</h6>
+                </div>
+                <div class='col-lg-6 col-md-6 col-sm-12 text-right'>
+                    <form class='form-inline pull-right' [formGroup]='logTypeForm'>
+                        <div class='form-group'>
+                            <label for='logTypeCd'>Log Type</label>
+                            <select formControlName='logTypeCd' class='form-control ml-2' id='logTypeCd' (change)='onLogTypeChange()'>
+                                <option value='-1'>All</option>
+                                <option [value]='logType.key' *ngFor='let logType of logTypes'>{{ logType.value }}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <div class='table-wrapper'>
+                <table class='table table-borderless paginated-table' cellspacing='0' role='grid'>
+                    <thead class='thead-light'>
+                        <tr role='row'>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Log Type</th>
+                            <th>Username</th>
+                            <th>Logged By</th>
+                            <th>Log Time</th>
+                            <th>Log</th>
+                            <th>Request URI</th>
+                            <th>Log Class</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf='logs.length === 0'>
+                            <td colspan='12'>No data found!</td>
+                        </tr>
+                        <tr *ngFor='let log of logs | paginate: { itemsPerPage: 10, currentPage: page }; index as i'>
+                            <td><button class="btn btn-link"><i class="fa fa-angle-right"></i></button></td>
+                            <td>{{ log.id }}</td>
+                            <td class='text-{{getLogTypeValue(log.logTypeCd, "type")}}'>{{ getLogTypeValue(log.logTypeCd, 'value') }}</td>
+                            <td>{{ log.username }}</td>
+                            <td>{{ log.createdBy ? log.createdBy : log.username }}</td>
+                            <td class='merge-one-line'>{{ log.createdDate | date :'medium' }}</td>
+                            <td class='merge-one-line'>{{ log.logMsg }}</td>
+                            <td>{{ log.requestUri }}</td>
+                            <td>{{ log.logClass }}</td>
+                            <td class='action'>
+                                <!-- <div>
+                                    <button type='button' class='btn btn-primary mr-2' (click)='onEditClick(property.id)' data-toggle='tooltip' title='Click to edit record'><i class='fa fa-pencil-square-o'></i></button>
+                                    <button type='button' class='btn btn-danger' (click)='onDeleteClick(property)' data-toggle='tooltip' title='Click to delete record'><i class='fa fa-trash-o'></i></button>
+                                </div> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class='has-text-centered pagination'>
+            <pagination-controls (pageChange)='page=$event'></pagination-controls>
+        </div>
+    </div>
+</div>

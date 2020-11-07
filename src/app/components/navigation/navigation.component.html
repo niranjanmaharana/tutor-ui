@@ -16,14 +16,24 @@
             <a href="#" aria-expanded="false" class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home"></i><span class="text">Home</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
-                <i class="fa fa-folder"></i><span class="text">Student</span>
-                <i class="fa fa-chevron-right"></i>
+            <a href="#" aria-expanded="false" class="nav-link" routerLink="/logs" routerLinkActive="active" tooltip="Manage Logs">
+                <i class="fa fa-history"></i><span class="text">App Logs</span>
             </a>
-            <ul class="submenu collapse list-unstyled" id="pageSubmenu">
-                <li class="nav-item"><a class="nav-link" href="#" routerLink="/student" routerLinkActive="active">List</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" [routerLink]="['/student', 0]" routerLinkActive="active">Add</a></li>
-            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" aria-expanded="false" class="nav-link" routerLink="/property" routerLinkActive="active" tooltip="Manage Properties">
+                <i class="fa fa-cog"></i><span class="text">Property</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" aria-expanded="false" class="nav-link" routerLink="/email-property" routerLinkActive="active" tooltip="Manage Email Properties">
+                <i class="fa fa-envelope"></i><span class="text">Email Property</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" aria-expanded="false" class="nav-link" routerLink="/student" routerLinkActive="active" tooltip="Manage Student">
+                <i class="fa fa-user"></i><span class="text">Student</span>
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" routerLink="/table" routerLinkActive="active"><i class="fa fa-table"></i><span class="text">Table</span></a>

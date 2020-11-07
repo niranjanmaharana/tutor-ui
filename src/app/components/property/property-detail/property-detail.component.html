@@ -1,0 +1,61 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Manage Properties</h1>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary" (click)="onBackToListClick()">
+        <i class="fa fa-arrow-left fa-sm text-white-50"></i><span></span> Back to List
+    </button>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">{{ edit ? 'Update' : 'Add' }} Property</h6>
+    </div>
+    <div class="card-body">
+        <!-- <app-form-control [formGroup]='propertyForm' [formControls]="formControls" [component]='this'></app-form-control> -->
+        <form [formGroup]="propertyForm" autocomplete='off' (submit)="onSubmit()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="prprtyKey"> Property Key</label>
+                            <input type="prprtyKey" class="form-control" formControlName="prprtyKey" id="prprtyKey" [ngClass]="{'is-invalid': f.prprtyKey.touched && f.prprtyKey.errors}" placeholder="Enter Property Key">
+                            <app-control-messages [control]="f.prprtyKey"></app-control-messages>
+                        </div>
+                        <div class="form-group">
+                            <label for="prprtyValue"> Property Value</label>
+                            <input type="prprtyValue" class="form-control" formControlName="prprtyValue" id="prprtyValue" [ngClass]="{'is-invalid': f.prprtyValue.touched && f.prprtyValue.errors}" placeholder="Enter Property Value">
+                            <app-control-messages [control]="f.prprtyValue"></app-control-messages>
+                        </div>
+                        <div class="form-group">
+                            <label for="prprtyDesc"> Property Value</label>
+                            <textarea type="prprtyDesc" class="form-control" formControlName="prprtyDesc" id="prprtyDesc" [ngClass]="{'is-invalid': f.prprtyDesc.touched && f.prprtyDesc.errors}" placeholder="Enter Property Value"></textarea>
+                            <app-control-messages [control]="f.prprtyDesc"></app-control-messages>
+                        </div>
+                        <div class="form-group">
+                            <label for="active"> Status</label>
+                            <select type="active" class="form-control" formControlName="active" id="active" [ngClass]="{'is-invalid': f.active.touched && f.active.errors}">
+                                <option [value]="item.key" *ngFor="let item of status" [selected]="item.key === f.active.value">{{ item.value }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+                    <div class="text-success" *ngIf="message">{{ message }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group text-right m-2">
+                        <button type="submit" class="btn btn-primary btn-sm mr-2" (click)="onSubmit()"><i class="fa fa-save"></i> Save</button>
+                        <button type="reset" class="btn btn-secondary btn-sm" (click)="onResetClick()"><i class="fa fa-refresh"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,11 +1,11 @@
 export class AppPrprty {
-    id: number;
-	prprtyKey: string;
-	prprtyValue:string;
+    id?: number;
+    prprtyKey: string;
+    prprtyValue: string;
     prprtyDesc: string;
-	active: boolean;
+    active: boolean;
     createdDtm?: Date;
-	updatedDtm?: Date;
-	createdBy?: number;
-	updatedBy?: number;
+    updatedDtm?: Date;
+    createdBy?: number;
+    updatedBy?: number;
 }

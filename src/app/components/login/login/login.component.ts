@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ErrorResponseHandler } from 'src/app/util/response.message';
 import { first } from 'rxjs/operators';
@@ -14,15 +14,18 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   error = '';
-  formLoading: boolean = false;
+  formLoading = false;
+  returnUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, public auth: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public auth: AuthService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['niranjan', Validators.required],
-      password: ['Niranjan95@', Validators.required]
+      password: ['Niranjan95_', Validators.required]
     });
+    this.auth.logout();
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   get f() {
@@ -40,11 +43,13 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/home']);
+          if (this.returnUrl === '' || this.returnUrl === '/') {
+            this.returnUrl = '/home';
+          }
+          this.router.navigateByUrl(this.returnUrl);
         },
         error => {
-          this.error = ErrorResponseHandler.getResponseMessage(error.status, error.statusText);
-          alert(this.error);
+          this.error = ErrorResponseHandler.getLoginErrorResponse(error);
         });
     this.formLoading = false;
   }

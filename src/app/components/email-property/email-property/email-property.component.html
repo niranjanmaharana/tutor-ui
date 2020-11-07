@@ -1,0 +1,105 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Manage Properties</h1>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary" (click)="onBackToListClick()">
+        <i class="fa fa-arrow-left fa-sm text-white-50"></i><span></span> Back to List
+    </button>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">{{ edit ? 'Update' : 'Add' }} Property</h6>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="propertyForm" autocomplete='off' (submit)="onSubmit()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="username"> Username</label>
+                            <input type="text" class="form-control" formControlName="username" id="username" [ngClass]="{'is-invalid': f.username.touched && f.username.errors}" placeholder="Enter Username">
+                            <app-control-messages [control]="f.username"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="password"> Password</label>
+                            <input type="text" type="text" class="form-control" formControlName="password" id="password" [ngClass]="{'is-invalid': f.password.touched && f.password.errors}" placeholder="Enter Password">
+                            <app-control-messages [control]="f.password"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <input type="hidden" formControlName="id">
+                        <div class="form-group">
+                            <label for="purpose"> Purpose of Email</label>
+                            <input type="text" class="form-control" formControlName="purpose" id="purpose" [ngClass]="{'is-invalid': f.purpose.touched && f.purpose.errors}" placeholder="Enter Purpose">
+                            <app-control-messages [control]="f.purpose"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="defaultEncoding"> Default Encoding</label>
+                            <input type="text" class="form-control" formControlName="defaultEncoding" id="defaultEncoding" [ngClass]="{'is-invalid': f.defaultEncoding.touched && f.defaultEncoding.errors}" placeholder="Enter Default Encoding">
+                            <app-control-messages [control]="f.defaultEncoding"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="emailFrom"> Email From</label> (
+                            <input type="checkbox" (change)="onSameAsUsernameChange()" [checked]="f.emailFrom.value === f.username.value" data-toggle="tooltip" title="Same as Username"> Same as Username)
+                            <input type="email" class="form-control" formControlName="emailFrom" id="emailFrom" [ngClass]="{'is-invalid': f.emailFrom.touched && f.emailFrom.errors }" placeholder="Enter Email From">
+                            <app-control-messages [control]="f.emailFrom"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="emailHost"> Email Host</label>
+                            <input type="text" class="form-control" formControlName="emailHost" id="emailHost" [ngClass]="{'is-invalid': f.emailHost.touched && f.emailHost.errors}" placeholder="Enter Email Host">
+                            <app-control-messages [control]="f.emailHost"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="emailPort"> Port</label>
+                            <input type="text" type="number" class="form-control" formControlName="emailPort" id="emailPort" [ngClass]="{'is-invalid': f.emailPort.touched && f.emailPort.errors}" placeholder="Enter Email Port">
+                            <app-control-messages [control]="f.emailPort"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="protocol"> Protocol</label>
+                            <input type="text" class="form-control" formControlName="protocol" id="protocol" [ngClass]="{'is-invalid': f.protocol.touched && f.protocol.errors}" placeholder="Enter Protocol">
+                            <app-control-messages [control]="f.protocol"></app-control-messages>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-check">
+                            <input type="checkbox" value="true" [checked]="f.auth.value" formControlName="auth" id="auth">&nbsp;&nbsp;&nbsp;<label for="auth"> Use Authentication</label><br>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-check">
+                            <input type="checkbox" [checked]="f.starttls.value" formControlName="starttls" id="starttls">&nbsp;&nbsp;&nbsp;<label for="starttls"> User STARTTLS</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+                    <div class="text-success" *ngIf="message">{{ message }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group text-right m-2">
+                        <button type="submit" class="btn btn-primary btn-sm mr-2" (click)="onSubmit()"><i class="fa fa-save"></i> Save</button>
+                        <button type="reset" class="btn btn-secondary btn-sm" (click)="onResetClick()"><i class="fa fa-refresh"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

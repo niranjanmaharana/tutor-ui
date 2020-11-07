@@ -15,5 +15,5 @@ export class Address {
         this.city = city;
         this.addrss = addrss;
         this.zipCd = zipCd;
-    };
+    }
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { map, first } from 'rxjs/operators';
 import { Configuration } from '../util/config';
 import { JwtResponse } from '../model/jwt.response';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { AppConstant } from '../const/app.constant';
-import { AppComponent } from '../app.component';
+import { ResponseEntity } from '../model/response.entity';
+import { ResetPassword } from '../model/reset.password.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,10 @@ export class AuthService {
   timedOut = false;
   lastPing = null;
   tokenUpdateIntervalTask = null;
+  returnUrl: string;
 
-  constructor(private http: HttpClient, private router: Router, private idle: Idle, private keepalive: Keepalive) {
+  constructor(private http: HttpClient, private router: Router, private idle: Idle, keepalive: Keepalive, private route: ActivatedRoute) {
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     idle.setIdle(AppConstant.IDLE_TIME);
     idle.setTimeout(AppConstant.TIMEOUT_INTERVAL);
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
@@ -58,9 +61,10 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    // return this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getLoginUrl(), { username, password })
-    return this.http.get<JwtResponse>('../assets/json/login.json')
+    return this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getLoginUrl(), { username, password })
+    // return this.http.get<JwtResponse>('../assets/json/login.json')
       .pipe(map(response => {
+        this.updateTokenWithInterval();
         Configuration.udpateToken(response);
         this.start();
       }));
@@ -73,13 +77,6 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  resetPassword(email: string) {
-    return this.http.post<JwtResponse>(Configuration.getApiUrl() + '/noauth/reset-password', { email })
-      .pipe(map(response => {
-        console.log(response);
-      }));
-  }
-
   updateTokenWithInterval() {
     this.tokenUpdateIntervalTask = setInterval(() => {
       const token = Configuration.getToken();
@@ -89,8 +86,8 @@ export class AuthService {
           Authorization: 'Bearer ' + token
         });
         const options = { headers };
-        // this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getUpdateTokenUrl(), null, options)
-        this.http.get<JwtResponse>('../assets/json/token.json')
+        this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getUpdateTokenUrl(), null, options)
+        // this.http.get<JwtResponse>('../assets/json/token.json')
           .pipe(first())
           .subscribe(
             data => {
@@ -115,8 +112,8 @@ export class AuthService {
         Authorization: 'Bearer ' + token
       });
       const options = { headers };
-      // this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getUpdateTokenUrl(), null, options)
-      this.http.get<JwtResponse>('../assets/json/token.json')
+      this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getUpdateTokenUrl(), null, options)
+      // this.http.get<JwtResponse>('../assets/json/token.json')
         .pipe(first())
         .subscribe(
           data => {
@@ -136,6 +133,44 @@ export class AuthService {
     } else {
       this.logout();
     }
+  }
+
+  refreshSessionToken() {
+    const token = Configuration.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      });
+      const options = { headers };
+      this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.getUpdateTokenUrl(), null, options)
+        .pipe(first())
+        .subscribe(
+          data => {
+            Configuration.udpateToken(data);
+            this.updateTokenWithInterval();
+            if (this.idleState === 'Not started.') {
+              this.start();
+              if (this.returnUrl === '' || this.returnUrl === '/') {
+                this.returnUrl = '/home';
+              }
+              this.router.navigateByUrl(this.returnUrl);
+            }
+          },
+          error => {
+            this.stop();
+            console.log(error);
+            this.logout();
+          });
+    }
+  }
+
+  forgotPassword(email: string) {
+    return this.http.get<ResponseEntity>(Configuration.getApiUrl() + '/' + Configuration.forgotPasswordUrl() + '?email=' + email);
+  }
+
+  resetPassword(password: ResetPassword) {
+    return this.http.post<JwtResponse>(Configuration.getApiUrl() + '/' + Configuration.resetPasswordUrl(), password);
   }
 
   start() {

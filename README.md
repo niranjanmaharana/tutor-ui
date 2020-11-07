@@ -33,3 +33,9 @@ npm install moment --save
 npm install ngx-pagination --save
 #ng-idle for timeout
 npm install --save @ng-idle/core @ng-idle/keepalive angular2-moment
+
+#sweet alert2
+#https://www.itsolutionstuff.com/post/angular-9-8-sweetalert2-sample-example-tutorialexample.html
+
+#Angular Grid
+#npm install --save ag-grid-community ag-grid-angular

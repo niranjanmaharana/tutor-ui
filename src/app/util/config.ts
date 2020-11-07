@@ -28,6 +28,14 @@ export class Configuration {
         return 'auth/signin';
     }
 
+    static forgotPasswordUrl(): string {
+        return 'password/forgot';
+    }
+
+    static resetPasswordUrl(): string {
+        return 'password/reset';
+    }
+
     static getUpdateTokenUrl(): string {
         return 'user/token';
     }

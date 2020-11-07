@@ -9,9 +9,9 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
                                     </div>
-                                    <form class="user" [formGroup]="loginForm" (ngSubmit)="onLoginClick()">
+                                    <form class="user" [formGroup]="loginForm" (ngSubmit)="onLoginClick()" autocomplete="off">
                                         <div class="form-group">
                                             <input type="text" formControlName="username" class="form-control form-control-user" id="email" aria-describedby="emailHelp" placeholder="Enter Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
                                             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
@@ -32,13 +32,16 @@
                                                 <label class="custom-control-label" for="rememberme">Remember Me</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-login">
+                                        <button type="submit" class="btn btn-primary btn-login" data-toggle="tooltip" title="Login">
                                             <span class="spinner-border spinner-border-sm" *ngIf="this.formLoading"></span> Login
                                         </button>
                                     </form>
+                                    <div class="form-group mt-2">
+                                        <div class="text-danger" *ngIf="error">{{ error }}</div>
+                                    </div>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="#" routerLink="/reset">Forgot Password?</a>
+                                    <div class="text-center mt-2">
+                                        <a class="small" href="#" routerLink="/forgotPassword">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="#" routerLink="/register">Create an Account!</a>

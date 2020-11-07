@@ -36,6 +36,9 @@
             </div>
         </div>
         <div class="overlay"></div>
+        <ag-grid-angular style="width: 800px; height: 800px;" class="ag-theme-alpine" [rowData]="rowData" (gridReady)="onGridReady($event)" [editType]="'fullRow'" [frameworkComponents]="frameworkComponents" [columnDefs]="columnDefs">
+        </ag-grid-angular>
+
         <app-footer *ngIf="this.auth.getUser() != null"></app-footer>
     </div>
 </div>

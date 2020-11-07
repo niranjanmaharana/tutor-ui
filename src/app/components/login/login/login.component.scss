@@ -1,8 +1,8 @@
-@import '../../../sass/variables';
-@import '../../../sass/mixins';
-@import '../../../sass/colors';
-@import '../../../sass/shared-components';
-@import '../../../sass/buttons';
+@import '../../../../sass/variables';
+@import '../../../../sass/mixins';
+@import '../../../../sass/colors';
+@import '../../../../sass/shared-components';
+@import '../../../../sass/buttons';
 body {
     background-color: #4e73df !important;
     background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%) !important;
@@ -18,7 +18,7 @@ body {
         padding-top: calc((100vh - 35rem)/2);
     }
     .bg-login-image {
-        background: url(../../../assets/images/background/login-bg.jpg);
+        background: url(../../../../assets/images/background/login-bg.jpg);
         background-position: center;
         background-size: cover;
     }

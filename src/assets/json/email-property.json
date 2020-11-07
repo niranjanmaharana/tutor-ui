@@ -1,0 +1,15 @@
+{
+    "status": "Successfull",
+    "data": [{
+        "id": 1,
+        "purpose": "EMAIL-SENDING",
+        "protocol": "smtp",
+        "auth": true,
+        "starttls": true,
+        "emailHost": "smtp.gmail.com",
+        "emailPort": 25,
+        "username": "niranzan.in@gmail.com",
+        "password": "Ni$%Ji*&95",
+        "emailFrom": "niranzan.in@gmail.com",
+    }]
+}
